@@ -27,18 +27,38 @@ def parse_natural_dates(expression)
     time_string = times_values[time_index] if time_index
   end
 
-  if expression.match?(/\btoday\b/)
+  if expression.match?(/\btoday\b/) || expression.match?(/\bthis day\b/)
     target_date = today
-  elsif expression.match?(/\btomorrow\b/)
+  elsif expression.match?(/\btomorrow\b/) || expression.match?(/\bnext day\b/)
     target_date = today + 1
   end
 
-  # binding.pry
+  if expression.match(/(\d{1,2})(?::(\d{2}))?(am|pm)?/)
+    hour = $1.to_i
+    minutes = $2 ? $2.to_i : 0
+    period = $3
+
+    if period == "pm" && hour << 12
+      hour += 12
+    elsif period == "am" && hour == 12
+      hour = 0
+      # binding.pry
+    end
+
+    time_string = "%02d:%02d" % [hour, minutes]
+  end
 
   datetime_string = "#{target_date} #{time_string}"
   DateTime.parse(datetime_string)
 end
 
-puts parse_natural_dates("Leadership lunch next friday at noon")
-puts parse_natural_dates("Leadership lunch today at noon")
-puts parse_natural_dates("Leadership lunch tomorrow")
+# puts parse_natural_dates("Leadership lunch next friday at noon")
+# puts parse_natural_dates("Leadership lunch today at noon")
+# puts parse_natural_dates("Leadership lunch tomorrow")
+# puts parse_natural_dates("Leadership lunch this day")
+# puts parse_natural_dates("Leadership lunch next day")
+# puts parse_natural_dates("Meetup tomorrow at 5pm")
+# puts parse_natural_dates("Meetup tomorrow at 5:00")
+puts parse_natural_dates("03/01/2012 07:25:09.234567")
+# puts parse_natural_dates("24h")
+# puts parse_natural_dates("Meetup todayhour at 8am")
