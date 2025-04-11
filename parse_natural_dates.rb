@@ -27,9 +27,9 @@ def parse_natural_dates(expression)
     time_string = times_values[time_index] if time_index
   end
 
-  if expression.match?(/\btoday\b/) || expression.match?(/\bthis day\b/)
+  if expression.match?(/\b(today|this day)\b/)
     target_date = today
-  elsif expression.match?(/\btomorrow\b/) || expression.match?(/\bnext day\b/)
+  elsif expression.match?(/\b(tomorrow|next day)\b/)
     target_date = today + 1
   end
 
@@ -55,8 +55,8 @@ end
 # puts parse_natural_dates("Leadership lunch next friday at noon")
 # puts parse_natural_dates("Leadership lunch today at noon")
 # puts parse_natural_dates("Leadership lunch tomorrow")
-# puts parse_natural_dates("Leadership lunch this day")
-# puts parse_natural_dates("Leadership lunch next day")
+puts parse_natural_dates("Leadership lunch this day")
+puts parse_natural_dates("Leadership lunch next day")
 # puts parse_natural_dates("Meetup tomorrow at 5pm")
 # puts parse_natural_dates("Meetup tomorrow at 5:00")
 puts parse_natural_dates("03/01/2012 07:25:09.234567")
