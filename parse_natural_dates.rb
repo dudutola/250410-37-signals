@@ -25,11 +25,20 @@ def parse_natural_dates(expression)
     time_of_the_day = $1
     time_index = times.find_index { |time| time_of_the_day.downcase == time }
     time_string = times_values[time_index] if time_index
-    # binding.pry
   end
+
+  if expression.match?(/\btoday\b/)
+    target_date = today
+  elsif expression.match?(/\btomorrow\b/)
+    target_date = today + 1
+  end
+
+  # binding.pry
 
   datetime_string = "#{target_date} #{time_string}"
   DateTime.parse(datetime_string)
 end
 
 puts parse_natural_dates("Leadership lunch next friday at noon")
+puts parse_natural_dates("Leadership lunch today at noon")
+puts parse_natural_dates("Leadership lunch tomorrow")
