@@ -72,20 +72,6 @@ def parse_natural_dates(expression)
     target_date = Date.new(year, month, day)
   end
 
-
-  # if expression.match(/\b(\w+)\s(\d{1,2})(st|nd|rd|th)?\b/)
-  #   day_of_week = $1.to_i
-  #   day_of_month = $2.to_i
-  # elsif expression.match(/\b(\d{2})\/(\d{2})\/(\d{2}|\d{4})\b/)
-  #   exp = expression.match(/\b(\d{2})\/(\d{2})\/(\d{2}|\d{4})\b/)
-  #   binding.pry
-  #   day = $1.to_i
-  #   month = $2.to_i
-  #   year = $3.to_i
-  # end
-
-  # binding.pry
-
   if target_date.nil?
     raise ArgumentError, "Invalid date in expression: #{expression}"
   end
