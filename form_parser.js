@@ -25,6 +25,9 @@ inputNaturalTextElement.addEventListener("keyup", (e) => {
           newDate = result;
         } else if (format.regex === formats[1].regex) {
           timeString = result;
+        } else if (format.regex === formats[2].regex) {
+          newDate = result.daysUntilTarget;
+          timeString = result.hour;
         }
       }
     };
@@ -75,6 +78,29 @@ const formats = [
         }
       }
       return null;
-    },
+    }
+  },
+  {
+    regex: /(sunday|monday|tuesday|wednesday|thursday|friday|saturday)\s(\d{2}:\d{2})/,
+    logic: (textValue) => {
+      const listOfMatchResult = textValue.match(/(sunday|monday|tuesday|wednesday|thursday|friday|saturday)\s(\d{2}:\d{2})/);
+
+      if (listOfMatchResult) {
+        const day = listOfMatchResult[1];
+        const hour = listOfMatchResult[2];
+
+        const foundDay = weekdays.find(dayOfTheWeek => day.toLowerCase() === dayOfTheWeek.toLowerCase());
+
+        if (foundDay) {
+          const targetDayIndex = weekdays.indexOf(foundDay);
+          const currentDayIndex = today.getDay();
+          let daysUntilTarget = (targetDayIndex - currentDayIndex + 7) % 7
+          if (daysUntilTarget === 0) daysUntilTarget = 7
+
+          return { daysUntilTarget, hour };
+        };
+      };
+      return null;
+    }
   }
 ]
