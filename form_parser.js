@@ -28,6 +28,8 @@ inputNaturalTextElement.addEventListener("keyup", (e) => {
         } else if (format.regex === formats[2].regex) {
           newDate = result.daysUntilTarget;
           timeString = result.hour;
+        } else if (format.regex === formats[3].regex) {
+          newDate = result;
         }
       }
     };
@@ -81,9 +83,9 @@ const formats = [
     }
   },
   {
-    regex: /(sunday|monday|tuesday|wednesday|thursday|friday|saturday)\s(\d{2}:\d{2})/,
+    regex: /(sunday|monday|tuesday|wednesday|thursday|friday|saturday)\s(\d{1,2}:\d{1,2})/,
     logic: (textValue) => {
-      const listOfMatchResult = textValue.match(/(sunday|monday|tuesday|wednesday|thursday|friday|saturday)\s(\d{2}:\d{2})/);
+      const listOfMatchResult = textValue.match(/(sunday|monday|tuesday|wednesday|thursday|friday|saturday)\s(\d{1,2}:\d{1,2})/);
 
       if (listOfMatchResult) {
         const day = listOfMatchResult[1];
@@ -99,6 +101,23 @@ const formats = [
 
           return { daysUntilTarget, hour };
         };
+      };
+      return null;
+    }
+  },
+  {
+    regex: /\b(tomorrow|next day)\b/,
+    logic: (textValue) => {
+      const listOfMatchResult = textValue.match(/\b(tomorrow|next day)\b/);
+
+      if (listOfMatchResult) {
+        const day = listOfMatchResult[0];
+
+        switch (day) {
+          case "tomorrow":
+          case "next day":
+            return 1;
+        }
       };
       return null;
     }
