@@ -5,11 +5,8 @@ const inputEndDateElement = document.getElementById("end-date");
 const today = new Date();
 const targetDate = new Date(today);
 
-// create arrays with days
 const weekdays = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-// create arrays with time of days
 const times = ["morning", "noon", "afternoon", "evening"];
-// create arrays with times values
 const timesValues = ["09:00", "12:00", "14:00", "18:00"];
 let timeString = "12:00";
 
@@ -23,15 +20,16 @@ inputNaturalTextElement.addEventListener("keyup", (e) => {
     if (textValue.match(format.regex)) {
       result = format.logic(textValue);
 
-      // daysUntilTarget
       if (result) {
         if (format.regex === formats[0].regex) {
           newDate = result;
+        } else if (format.regex === formats[1].regex) {
+          timeString = result;
         }
       }
     };
 
-    if (newDate) {
+    if (newDate && timeString) {
       targetDate.setDate(today.getDate() + newDate);
 
       const isoDate = targetDate.toISOString().split("T")[0];
@@ -43,23 +41,6 @@ inputNaturalTextElement.addEventListener("keyup", (e) => {
       inputEndDateElement.value = fullDateTime;
     }
   };
-
-  const listOfTimeOfDay = textValue.match(/(morning|noon|afternoon|evening)/);
-  if (listOfTimeOfDay) {
-    times.forEach((time, index) => {
-      if (textValue.includes(time)) {
-        timeString = timesValues[index];
-
-        const isoDate = targetDate.toISOString().split("T")[0];
-        const fullDateTime = `${isoDate}T${timeString}`
-        const fullsStartDateTime = `${today.toISOString().split("T")[0]}T${timeString}`
-
-        inputStartDateElement.value = fullsStartDateTime;
-        inputEndDateElement.value = fullDateTime;
-      }
-    });
-  };
-
 });
 
 const formats = [
@@ -82,6 +63,18 @@ const formats = [
           return daysUntilTarget;
         };
       };
+      return null;
+    }
+  },
+  {
+    regex: /(morning|noon|afternoon|evening)/,
+    logic: (textValue) => {
+      for (let index = 0; index < times.length; index++) {
+        if (textValue.includes(times[index])) {
+          return timesValues[index];
+        }
+      }
+      return null;
     },
   }
 ]
