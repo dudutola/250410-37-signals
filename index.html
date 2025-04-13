@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Parse Natural Dates</title>
+  <title>37 Signals</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <h2>Parsing Natural Dates</h2>
   <form id="parsing-form" action="">
     <input type="text" id="natural-text">
 
@@ -13,6 +15,27 @@
     <input type="datetime-local" id="end-date">
   </form>
 
+  <h2>Needle Progress Bar</h2>
+  <form id="range-form" action="">
+    <input type="range" id="range-bar" min="0" max="100" value="50">
+
+    <div id="color-options">
+      <div class="color-option" data-color="green">
+        <span class="color-circle" style="background-color: green;"></span>
+        <span>On track</span>
+      </div>
+      <div class="color-option" data-color="yellow">
+        <span class="color-circle" style="background-color: yellow;"></span>
+        <span>Some risk</span>
+      </div>
+      <div class="color-option" data-color="red">
+        <span class="color-circle" style="background-color: red;"></span>
+        <span>Concerned</span>
+      </div>
+    </div>
+  </form>
+
   <script src="form_parser.js"></script>
+  <script src="./01_needle_progress_bar/form_needle_bar.js"></script>
 </body>
 </html>
