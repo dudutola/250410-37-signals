@@ -4,6 +4,7 @@ input[type="range"] {
   height: 0.5rem;
   border-radius: 1rem;
   background: lightgray;
+  /* background-color: red; */
   outline: none;
   --thumb-color: green;
 }
@@ -61,7 +62,7 @@ input[type="range"]::-moz-range-thumb {
   display: inline-block;
 }
 
-
+/* indicator */
 .range-wrapper {
   position: relative;
   width: 300px;
@@ -85,3 +86,6 @@ input[type="range"]::-moz-range-thumb {
   border-left: 2px solid white;
   border-right: 2px solid white;
 }
+
+
+/* see last updates */

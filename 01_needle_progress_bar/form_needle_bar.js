@@ -2,27 +2,15 @@
 const rangeInput = document.getElementById("range-bar");
 const colorButtons = document.querySelectorAll(".color-circle");
 const prevIndicator = document.getElementById("prev-indicator");
+const historyListElement = document.getElementById("history-list");
 
 // set default color
 let currentColor = "green";
 let defaultColor = "lightgray";
 let previousValue = null;
 
-// rangeInput.addEventListener("input", () => {
-//   const currentValue = rangeInput.value;
-
-//   if (previousValue !== null) {
-//     const marker = document.querySelector(".previous-marker");
-//     const percent = (previousValue / rangeInput.max) * 100;
-//     marker.style.left = `${percent}%`;
-//   }
-
-//   previousValue = currentValue;
-// });
-
 // gradient background based on range value
 function updateRangeColor() {
-  // const value = rangeInput.value;
   const value = parseInt(rangeInput.value);
   const max = rangeInput.max || 100;
   const percentage = (value / max) * 100;
@@ -47,7 +35,6 @@ function updatePreviousIndicator() {
     prevIndicator.style.left = `${leftOffset}px`;
     prevIndicator.style.display = "block";
   }
-  // save prevAlue with value
   previousValue = parseInt(rangeInput.value);
 }
 
@@ -59,9 +46,34 @@ colorButtons.forEach(button => {
   });
 });
 
-rangeInput.addEventListener("input", updateRangeColor);
+rangeInput.addEventListener("input", () => {
+  const clonedRange = rangeInput.cloneNode(true);
+  historyListElement.appendChild(clonedRange);
+
+  updateRangeColor();
+});
+// rangeInput.addEventListener("change", () => {
+//   historyRangeValues.push(rangeInput);
+
+
+//   const liELement = document.createElement("li");
+//   // for each range value we'll create a li with the range
+//   historyRangeValues.forEach(rangeElement => {
+//     // liELement.innerHTML = rangeElement;
+//     historyListElement.appendChild(rangeElement);
+//   });
+//   historyListElement;
+// });
+
 rangeInput.addEventListener("change", updatePreviousIndicator);
 
 updateRangeColor();
 
 // see last updates
+// create an array to store range-bar
+// add an ul in html
+// call it
+// add event listener
+// push it to array
+// create li to append to ul
+// append the ul child
