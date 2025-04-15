@@ -63,7 +63,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 /* indicator */
-.range-wrapper {
+#range-wrapper {
   position: relative;
   width: 300px;
 }

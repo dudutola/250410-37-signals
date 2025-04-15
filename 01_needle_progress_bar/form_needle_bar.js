@@ -1,4 +1,5 @@
 // retrieve all the important stuff
+const rangeWrapperELement = document.getElementById("range-wrapper")
 const rangeInput = document.getElementById("range-bar");
 const colorButtons = document.querySelectorAll(".color-circle");
 const prevIndicator = document.getElementById("prev-indicator");
@@ -7,7 +8,8 @@ const historyListElement = document.getElementById("history-list");
 // set default color
 let currentColor = "green";
 let defaultColor = "lightgray";
-let previousValue = null;
+// let previousValue = null;
+let previousValue = parseInt(rangeInput.value);
 
 // gradient background based on range value
 function updateRangeColor() {
@@ -25,8 +27,10 @@ function updateRangeColor() {
   rangeInput.style.setProperty("--thumb-color", currentColor);
 }
 
+// mark previous progress
 function updatePreviousIndicator() {
   if (previousValue !== null) {
+    // repetition
     const max = rangeInput.max || 100;
     const wrapperWidth = rangeInput.offsetWidth;
     const prevPercentage = (previousValue / max) * 100;
@@ -46,34 +50,28 @@ colorButtons.forEach(button => {
   });
 });
 
-rangeInput.addEventListener("input", () => {
-  const clonedRange = rangeInput.cloneNode(true);
-  historyListElement.appendChild(clonedRange);
+rangeInput.addEventListener("change", () => {
+  // see last updates
+  const clonedElement = rangeWrapperELement.cloneNode(true);
+
+  const clonedPrevIndicator = clonedElement.querySelector("#prev-indicator");
+  if (clonedPrevIndicator && previousValue !== null) {
+    // repetition
+    const max = rangeInput.max || 100;
+    const wrapperWidth = rangeInput.offsetWidth;
+    const prevPercentage = (previousValue / max) * 100;
+    const leftOffset = (prevPercentage / 100) * wrapperWidth;
+
+    clonedPrevIndicator.style.left = `${leftOffset}px`;
+    clonedPrevIndicator.style.display = "block";
+  }
+  // updatePreviousIndicator(clonedElement);
+
+  historyListElement.appendChild(clonedElement);
 
   updateRangeColor();
 });
-// rangeInput.addEventListener("change", () => {
-//   historyRangeValues.push(rangeInput);
-
-
-//   const liELement = document.createElement("li");
-//   // for each range value we'll create a li with the range
-//   historyRangeValues.forEach(rangeElement => {
-//     // liELement.innerHTML = rangeElement;
-//     historyListElement.appendChild(rangeElement);
-//   });
-//   historyListElement;
-// });
 
 rangeInput.addEventListener("change", updatePreviousIndicator);
 
 updateRangeColor();
-
-// see last updates
-// create an array to store range-bar
-// add an ul in html
-// call it
-// add event listener
-// push it to array
-// create li to append to ul
-// append the ul child
