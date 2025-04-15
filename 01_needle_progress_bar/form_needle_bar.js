@@ -27,17 +27,21 @@ function updateRangeColor() {
   rangeInput.style.setProperty("--thumb-color", currentColor);
 }
 
+//
+function positionPreviousIndicator(value, indicator) {
+  const max = rangeInput.max || 100;
+  const wrapperWidth = rangeInput.offsetWidth;
+  const prevPercentage = (value / max) * 100;
+  const leftOffset = (prevPercentage / max) * wrapperWidth;
+
+  indicator.style.left = `${leftOffset}px`;
+  indicator.style.display = "block";
+}
+
 // mark previous progress
 function updatePreviousIndicator() {
   if (previousValue !== null) {
-    // repetition
-    const max = rangeInput.max || 100;
-    const wrapperWidth = rangeInput.offsetWidth;
-    const prevPercentage = (previousValue / max) * 100;
-    const leftOffset = (prevPercentage / max) * wrapperWidth;
-
-    prevIndicator.style.left = `${leftOffset}px`;
-    prevIndicator.style.display = "block";
+    positionPreviousIndicator(previousValue, prevIndicator);
   }
   previousValue = parseInt(rangeInput.value);
 }
@@ -56,16 +60,8 @@ rangeInput.addEventListener("change", () => {
 
   const clonedPrevIndicator = clonedElement.querySelector("#prev-indicator");
   if (clonedPrevIndicator && previousValue !== null) {
-    // repetition
-    const max = rangeInput.max || 100;
-    const wrapperWidth = rangeInput.offsetWidth;
-    const prevPercentage = (previousValue / max) * 100;
-    const leftOffset = (prevPercentage / 100) * wrapperWidth;
-
-    clonedPrevIndicator.style.left = `${leftOffset}px`;
-    clonedPrevIndicator.style.display = "block";
+    positionPreviousIndicator(previousValue, clonedPrevIndicator);
   }
-  // updatePreviousIndicator(clonedElement);
 
   historyListElement.appendChild(clonedElement);
 
