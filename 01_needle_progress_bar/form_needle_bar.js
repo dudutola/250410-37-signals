@@ -8,7 +8,6 @@ const historyListElement = document.getElementById("history-list");
 // set default color
 let currentColor = "green";
 let defaultColor = "lightgray";
-// let previousValue = null;
 let previousValue = parseInt(rangeInput.value);
 
 // gradient background based on range value
@@ -55,6 +54,15 @@ colorButtons.forEach(button => {
 });
 
 rangeInput.addEventListener("change", () => {
+  // store data
+  const dataToStore = {
+    value: rangeInput.value,
+    previousValue: previousValue
+  };
+  // need range + indicator hash?
+  localStorage.setItem("rangeValue", rangeInput.value);
+  // localStorage.setItem("rangeValue", JSON.stringify(dataToStore));
+
   // see last updates
   const clonedElement = rangeWrapperELement.cloneNode(true);
 
@@ -66,6 +74,30 @@ rangeInput.addEventListener("change", () => {
   historyListElement.appendChild(clonedElement);
 
   updateRangeColor();
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  const savedRangeValue = localStorage.getItem("rangeValue");
+  // const savedRangeValue = JSON.parse(localStorage.getItem("rangeValue"));
+
+  if (savedRangeValue !== null) {
+    rangeInput.value = savedRangeValue;
+    // rangeInput.value = savedRangeValue.value;
+    // previousValue = parseInt(savedRangeValue.previousValue);
+
+    // nope just doesnt move
+    // prevIndicator.style.display = "none";
+
+    // clone prevIndicator
+    // const clonedPrevIndicator = prevIndicator.cloneNode(true);
+    // clonedPrevIndicator.classList.add("2");
+    // clonedPrevIndicator.style.display = "block";
+
+    // rangeInput.parentNode.appendChild(clonedPrevIndicator)
+
+    // positionPreviousIndicator(previousValue, prevIndicator);
+    // positionPreviousIndicator(previousValue, clonedPrevIndicator);
+  }
 });
 
 rangeInput.addEventListener("change", updatePreviousIndicator);
