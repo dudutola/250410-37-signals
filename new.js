@@ -1,6 +1,8 @@
+const rangeWrapperELement = document.getElementById("range-wrapper")
 const rangeInput = document.getElementById("range-bar");
 const prevIndicatorElement = document.getElementById("prev-indicator");
 const colorButtons = document.querySelectorAll(".color-circle");
+const historyListElement = document.getElementById("history-list");
 
 // get values from localStorage
 let savedData = JSON.parse(localStorage.getItem("rangeData"));
@@ -92,6 +94,17 @@ rangeInput.addEventListener("change", () => {
     selectedColor: currentColor
   }
   localStorage.setItem("rangeData", JSON.stringify(dataToStore));
+
+  // see last updates
+  const clonedElement = rangeWrapperELement.cloneNode(true);
+
+  const clonedPrevIndicator = clonedElement.querySelector("#prev-indicator");
+  if (clonedPrevIndicator && markerValue !== null) {
+    positionPreviousIndicator(markerValue, clonedPrevIndicator);
+  }
+
+  historyListElement.appendChild(clonedElement);
+
 
   updateRangeColor();
 });
