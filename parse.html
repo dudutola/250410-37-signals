@@ -6,8 +6,62 @@
   <title>37 Signals</title>
   <link rel="stylesheet" href="style.css">
 </head>
+<style>
+  /* center in body */
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #8b9aeb;
+  }
+  form {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  input {
+    width: 100%;
+  }
+  h1 {
+    font-size: 3em;
+  }
+  /*
+  create github pages
+  or put on your dulcelene.com/profile
+  dudutola.github.io/
+  dudutola.github.io/natural-date-parser -> github pages
+  dudutola.github.io/needle -> github pages
+  dudutola.github.io/240410-37-signals/natural-date-parser.html
+  dudutola.github.io/240410-37-signals/needle.html
+  in each page put a link to the other page (html)
+
+  */
+  ul {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+
+    a {
+      text-decoration: none;
+      color: #1f1f3a;
+    }
+  }
+</style>
 <body>
-  <h2>Parsing Natural Dates</h2>
+  <ul>
+    <li><a href="#">Natural Date Parsing</a></li>
+    <!--
+      find a way to highlight the current link
+      underline or something like that
+     -->
+    <li><a href="/path/to/needle/html">Needle</a></li>
+  </ul>
+  <h1>Parsing Natural Dates</h2>
   <form id="parsing-form" action="">
     <input type="text" id="natural-text">
 

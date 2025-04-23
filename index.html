@@ -7,39 +7,64 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Parsing Natural Dates</h2>
-  <form id="parsing-form" action="">
-    <input type="text" id="natural-text">
+  <nav>
+    <ul>
+      <li>
+        <a href="#parsing_date" class="nav-link">Natural date parser</a>
+      </li>
+      <li>
+        <a href="#needle" class="nav-link">Needle</a>
+      </li>
+    </ul>
+  </nav>
 
-    <input type="datetime-local" id="start-date">
-    <input type="datetime-local" id="end-date">
-  </form>
+  <section id="parsing_date">
+    <h2>Parsing Natural Dates</h2>
+    <form id="parsing-form" action="">
+      <input type="text" id="natural-text" placeholder="Leadership lunch tomorrow...">
 
-  <h2>Needle Progress Bar</h2>
-  <form id="range-form" action="">
-    <div id="range-wrapper">
-      <input type="range" id="range-bar" min="0" max="100" value="50">
-      <div id="prev-indicator"></div>
-    </div>
+      <input type="datetime-local" id="start-date">
+      <input type="datetime-local" id="end-date">
+    </form>
+  </section>
 
-    <div id="color-options">
-      <div class="color-option" data-color="green">
-        <span class="color-circle" style="background-color: green;"></span>
-        <span>On track</span>
+  <section id="needle">
+    <h2>Needle Progress Bar</h2>
+    <form id="range-form" action="">
+      <div id="range-wrapper">
+        <input type="range" id="range-bar" min="0" max="100" value="50">
+        <div id="prev-indicator"></div>
       </div>
-      <div class="color-option" data-color="yellow">
-        <span class="color-circle" style="background-color: yellow;"></span>
-        <span>Some risk</span>
-      </div>
-      <div class="color-option" data-color="red">
-        <span class="color-circle" style="background-color: red;"></span>
-        <span>Concerned</span>
-      </div>
-    </div>
-  </form>
-  <div id="history-list">Report</div>
 
-  <!-- <script src="form_parser.js"></script>
-  <script src="./01_needle_progress_bar/form_needle_bar.js"></script> -->
+      <div id="color-options">
+        <div class="color-option" data-color="green">
+          <span class="color-circle" style="background-color: green;"></span>
+          <span>On track</span>
+        </div>
+        <div class="color-option" data-color="yellow">
+          <span class="color-circle" style="background-color: yellow;"></span>
+          <span>Some risk</span>
+        </div>
+        <div class="color-option" data-color="red">
+          <span class="color-circle" style="background-color: red;"></span>
+          <span>Concerned</span>
+        </div>
+      </div>
+    </form>
+    <div id="history-list">Report</div>
+  </section>
+
+  <script>
+    const links = document.querySelectorAll(".nav-link");
+    links.forEach(link => {
+      link.addEventListener("click", function() {
+        links.forEach(link_active => link_active.classList.remove("active"));
+        this.classList.add("active");
+      });
+    });
+  </script>
+
+  <script src="form_parser.js"></script>
+  <script src="./01_needle_progress_bar/form_needle_bar.js"></script>
 </body>
 </html>
