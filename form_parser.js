@@ -30,8 +30,6 @@ inputNaturalTextElement.addEventListener("keyup", (e) => {
           timeString = result.hour;
         } else if (format.regex === formats[3].regex) {
           newDate = result;
-        } else if (format.regex === formats[4].regex) {
-          newDate = result;
         }
       }
     };
@@ -108,26 +106,9 @@ const formats = [
     }
   },
   {
-    regex: /\b(tomorrow|next day)\b/,
+    regex: /\b(today|tomorrow|next day)\b/,
     logic: (textValue) => {
-      const listOfMatchResult = textValue.match(/\b(tomorrow|next day)\b/);
-
-      if (listOfMatchResult) {
-        const day = listOfMatchResult[0];
-
-        switch (day) {
-          case "tomorrow":
-          case "next day":
-            return 1;
-        }
-      };
-      return null;
-    }
-  },
-  {
-    regex: /\b(today)\b/,
-    logic: (textValue) => {
-      const listOfMatchResult = textValue.match(/\b(today)\b/);
+      const listOfMatchResult = textValue.match(/\b(today|tomorrow|next day)\b/);
 
       if (listOfMatchResult) {
         const day = listOfMatchResult[0];
@@ -135,6 +116,9 @@ const formats = [
         switch (day) {
           case "today":
             return 0;
+          case "tomorrow":
+          case "next day":
+            return 1;
         }
       };
       return null;
