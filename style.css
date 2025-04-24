@@ -124,7 +124,11 @@ h2 {
 nav {
   display: flex;
   flex-direction: row-reverse;
-  padding: 16px 32px;
+  padding: 12px 32px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
 
   ul {
     display: flex;
