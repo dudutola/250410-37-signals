@@ -20,7 +20,7 @@ inputNaturalTextElement.addEventListener("keyup", (e) => {
     if (textValue.match(format.regex)) {
       result = format.logic(textValue);
 
-      if (result) {
+      if (result !== null && result !== undefined) {
         if (format.regex === formats[0].regex) {
           newDate = result;
         } else if (format.regex === formats[1].regex) {
@@ -30,11 +30,13 @@ inputNaturalTextElement.addEventListener("keyup", (e) => {
           timeString = result.hour;
         } else if (format.regex === formats[3].regex) {
           newDate = result;
+        } else if (format.regex === formats[4].regex) {
+          newDate = result;
         }
       }
     };
 
-    if (newDate && timeString) {
+    if (newDate !== null && newDate !== undefined && timeString) {
       targetDate.setDate(today.getDate() + newDate);
 
       const isoDate = targetDate.toISOString().split("T")[0];
@@ -117,6 +119,22 @@ const formats = [
           case "tomorrow":
           case "next day":
             return 1;
+        }
+      };
+      return null;
+    }
+  },
+  {
+    regex: /\b(today)\b/,
+    logic: (textValue) => {
+      const listOfMatchResult = textValue.match(/\b(today)\b/);
+
+      if (listOfMatchResult) {
+        const day = listOfMatchResult[0];
+
+        switch (day) {
+          case "today":
+            return 0;
         }
       };
       return null;
