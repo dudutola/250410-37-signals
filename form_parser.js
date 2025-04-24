@@ -83,13 +83,13 @@ const formats = [
     }
   },
   {
-    regex: /(sunday|monday|tuesday|wednesday|thursday|friday|saturday)\s(\d{1,2}:\d{1,2})/,
+    regex: /(sunday|monday|tuesday|wednesday|thursday|friday|saturday)(?:\s+(\d{1,2}:\d{1,2}))?/,
     logic: (textValue) => {
-      const listOfMatchResult = textValue.match(/(sunday|monday|tuesday|wednesday|thursday|friday|saturday)\s(\d{1,2}:\d{1,2})/);
+      const listOfMatchResult = textValue.match(/(sunday|monday|tuesday|wednesday|thursday|friday|saturday)(?:\s+(\d{1,2}:\d{1,2}))?/);
 
       if (listOfMatchResult) {
         const day = listOfMatchResult[1];
-        const hour = listOfMatchResult[2];
+        const hour = listOfMatchResult[2] || "12:00";
 
         const foundDay = weekdays.find(dayOfTheWeek => day.toLowerCase() === dayOfTheWeek.toLowerCase());
 
